@@ -50,6 +50,6 @@ jobs:
           apiToken: ${{ env.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
           projectName: ${{ env.CLOUDFLARE_PAGES_PROJECT_NAME }}
-          directory: dist
+          directory: .next
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.event_name == 'workflow_dispatch' && inputs.environment == 'preview' && 'preview' || 'main' }}
