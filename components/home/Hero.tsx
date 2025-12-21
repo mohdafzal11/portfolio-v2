@@ -7,54 +7,64 @@ import { ArrowRight } from "lucide-react"
 
 export function Hero() {
     return (
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-            {/* Background gradients */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-500/20 rounded-full blur-[120px] -z-10 opacity-30 animate-pulse" />
-            <div className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-purple-500/10 rounded-full blur-[100px] -z-10 opacity-20" />
+        <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden pt-32 pb-20">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+                style={{ backgroundImage: "radial-gradient(#27272a 1px, transparent 1px)", backgroundSize: "40px 40px" }}
+            />
 
-            <div className="container px-4 md:px-6 mx-auto text-center z-10">
+            <div className="container px-4 md:px-6 mx-auto text-center z-10 relative">
+
+                {/* Top Badge */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
+                    className="mb-8 flex justify-center"
                 >
-                    <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300 mb-6 backdrop-blur-sm">
-                        Available for freelance work
+                    <span className="inline-flex items-center py-2 px-4 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-gray-400 uppercase tracking-widest backdrop-blur-md">
+                        <span className="w-2 h-2 rounded-full bg-primary mr-3 animate-pulse" />
+                        Available for new projects
                     </span>
                 </motion.div>
 
+                {/* Main Headline */}
                 <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50 mb-6"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, ease: "circOut" }}
+                    className="font-mono text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white mb-8 leading-[0.9]"
                 >
-                    Building Digital <br /> Experiences
+                    SOFTWARE <br />
+                    <span className="text-zinc-600">ENGINEER</span> & <br />
+                    <span className="bg-primary text-black px-2 mt-2 inline-block transform -rotate-1">CREATOR</span>
                 </motion.h1>
 
+                {/* Subtext */}
                 <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-10"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="font-sans text-lg md:text-xl text-gray-400 max-w-xl mx-auto mb-12 leading-relaxed"
                 >
-                    I craft minimalist, high-performance websites and applications with a focus on user experience and clean code.
+                    Crafting industrial-grade digital experiences with a focus on motion, interaction, and scalability.
                 </motion.p>
 
+                {/* CTA Buttons */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    className="flex flex-col sm:flex-row items-center justify-center gap-4"
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                    className="flex flex-col sm:flex-row items-center justify-center gap-6"
                 >
                     <Link href="/projects">
-                        <Button size="lg" className="rounded-full text-base h-12 px-8">
-                            View Work <ArrowRight className="ml-2 w-4 h-4" />
+                        <Button variant="default" size="lg" className="rounded-full text-base font-bold tracking-wide">
+                            VIEW WORK <ArrowRight className="ml-2 w-5 h-5" />
                         </Button>
                     </Link>
                     <Link href="/contact">
-                        <Button variant="outline" size="lg" className="rounded-full text-base h-12 px-8 bg-transparent hover:bg-white/5 border-white/10">
-                            Contact Me
+                        <Button variant="outline" size="lg" className="rounded-full text-base font-bold tracking-wide border-white/20 hover:bg-white/10">
+                            CONTACT ME
                         </Button>
                     </Link>
                 </motion.div>

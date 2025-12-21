@@ -1,12 +1,11 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Badge } from "lucide-react" // Wait, Badge is usually a separate component, I can use a span or create a Badge component. I'll create a simple badge style here or use simple spans.
-// Correcting: Lucide doesn't export Badge component, it exports Badge *icon*.
-import { ExternalLink, Github } from "lucide-react"
-import Image from "next/image"
+import { ExternalLink, Github, ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
+
+import Image from "next/image"
 
 interface ProjectProps {
     title: string
@@ -23,43 +22,67 @@ export function ProjectCard({ project, index }: { project: ProjectProps, index: 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.1 }}
+            className="h-full"
         >
-            <Card className="overflow-hidden glass border-white/10 h-full flex flex-col hover:border-white/20 transition-all duration-300 group">
-                <div className="relative h-48 w-full bg-gray-900/50 overflow-hidden">
-                    {/* Placeholder or Image */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
-                    {/* If image exists, better to use next/image but for now simple div with bg or gradient */}
-                    <div className="w-full h-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 group-hover:scale-105 transition-transform duration-500" />
+            <Card className="overflow-hidden glass border-white/5 h-full flex flex-col hover:border-white/20 transition-all duration-500 group relative bg-zinc-900/80 hover:bg-zinc-900/90">
+                <div className="relative h-[18rem] w-full bg-zinc-800 overflow-hidden">
+                    {project.image ? (
+                        <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out">
+                            <Image
+                                src={project.image}
+                                alt={project.title}
+                                fill
+                                className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                            />
+                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                        </div>
+                    ) : (
+                        /* Abstract placeholder pattern fallback */
+                        <div className="w-full h-full bg-zinc-900 group-hover:scale-105 transition-transform duration-700 ease-out flex items-center justify-center relative">
+                            <div className="absolute inset-0 bg-[linear-gradient(45deg,#121212_25%,transparent_25%,transparent_75%,#121212_75%,#121212),linear-gradient(45deg,#121212_25%,transparent_25%,transparent_75%,#121212_75%,#121212)] bg-[length:20px_20px] bg-[position:0_0,10px_10px] opacity-20" />
+
+                            <div className="z-10 bg-white/5 px-4 py-2 rounded-full backdrop-blur-md border border-white/10 group-hover:bg-primary/10 group-hover:border-primary/20 transition-colors">
+                                <span className="text-gray-400 group-hover:text-primary font-mono text-xs uppercase tracking-widest transition-colors">Preview Image</span>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Live/Github Overlay */}
+                    <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        {project.github && (
+                            <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-primary hover:text-black transition-colors">
+                                <Github className="w-4 h-4" />
+                            </a>
+                        )}
+                        {project.link && (
+                            <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-2 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-primary hover:text-black transition-colors">
+                                <ExternalLink className="w-4 h-4" />
+                            </a>
+                        )}
+                    </div>
                 </div>
-                <CardHeader>
-                    <CardTitle className="text-xl text-white group-hover:text-blue-400 transition-colors">{project.title}</CardTitle>
-                    <CardDescription className="line-clamp-2 mt-2">{project.description}</CardDescription>
+
+                <CardHeader className="relative z-20 pt-6 pb-2">
+                    <div className="flex justify-between items-start">
+                        <CardTitle className="font-mono text-xl sm:text-2xl text-white group-hover:text-primary transition-colors uppercase tracking-tight leading-none">
+                            {project.title}
+                        </CardTitle>
+                        <ArrowRight className="w-5 h-5 text-gray-500 group-hover:text-primary transition-colors transform group-hover:-rotate-45 duration-300" />
+                    </div>
+                    <CardDescription className="line-clamp-2 mt-4 text-base text-gray-400 font-sans leading-relaxed">
+                        {project.description}
+                    </CardDescription>
                 </CardHeader>
-                <CardContent className="flex-grow">
+
+                <CardContent className="flex-grow z-20 pb-6 pt-2">
                     <div className="flex flex-wrap gap-2">
                         {project.tags.map((tag) => (
-                            <span key={tag} className="px-2 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-gray-300">
+                            <span key={tag} className="px-3 py-1 rounded-full bg-white/5 border border-white/5 text-[10px] font-mono text-gray-400 uppercase tracking-wider group-hover:border-white/10 transition-colors">
                                 {tag}
                             </span>
                         ))}
                     </div>
                 </CardContent>
-                <CardFooter className="gap-2 pt-0 mt-auto">
-                    {project.github && (
-                        <Button variant="ghost" size="sm" asChild className="h-8 gap-2">
-                            <a href={project.github} target="_blank" rel="noopener noreferrer">
-                                <Github className="w-4 h-4" /> Code
-                            </a>
-                        </Button>
-                    )}
-                    {project.link && (
-                        <Button variant="ghost" size="sm" asChild className="h-8 gap-2 ml-auto">
-                            <a href={project.link} target="_blank" rel="noopener noreferrer">
-                                Live Demo <ExternalLink className="w-4 h-4" />
-                            </a>
-                        </Button>
-                    )}
-                </CardFooter>
             </Card>
         </motion.div>
     )
