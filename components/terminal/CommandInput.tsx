@@ -116,7 +116,7 @@ export function CommandInput({ disabled, onSubmit }: CommandInputProps) {
   return (
     <div ref={wrapperRef} className="shrink-0 relative">
       {/* Status bar */}
-      <div className="flex items-center justify-between !px-0 !py-3 border-t border-white/[0.06] text-[10px] sm:text-xs text-gray-600 font-mono">
+      <div className="flex items-center justify-between !py-3 border-t border-white/[0.06] text-[10px] sm:text-xs text-gray-600 font-mono">
         <div className="flex items-center gap-4">
           <span>MEM: 48MB</span>
           <span>CPU: 2%</span>
@@ -125,12 +125,12 @@ export function CommandInput({ disabled, onSubmit }: CommandInputProps) {
       </div>
 
       {/* Input card + dropdown (dropdown positioned exactly above input) */}
-      <div className="!px-0 !pt-4 !pb-5 sm:!pb-6">
+      <div className="!pt-4 !pb-5 sm:!pb-6">
         <div className="relative">
           {/* Dropdown — sits exactly above the input row */}
           {isOpen && !disabled && (
             <div className="absolute bottom-full left-0 right-0 mb-6">
-              <div className="rounded-lg border border-white/10 bg-[#1a1a1a] overflow-hidden shadow-2xl shadow-black/60 max-h-[280px] overflow-y-auto">
+              <div className="rounded-lg border border-white/10 bg-[#1a1a1a] overflow-hidden shadow-2xl shadow-black/60 max-h-[40dvh] sm:max-h-[280px] overflow-y-auto">
                 <div className="!px-2.5 sm:!px-3 !py-1.5 border-b border-white/5">
                   <span className="text-[10px] text-gray-600 uppercase tracking-wider">
                     commands
@@ -167,7 +167,7 @@ export function CommandInput({ disabled, onSubmit }: CommandInputProps) {
           {/* Spacer: creates visible gap between dropdown and input when open */}
           {isOpen && !disabled && <div className="h-2 shrink-0" aria-hidden />}
 
-          <div className="flex gap-3 sm:gap-4 items-stretch">
+          <div className="flex gap-2 sm:gap-4 items-stretch">
           {/* Main input card */}
           <div
             className="flex-1 rounded-xl border border-white/[0.08] bg-[#141414] overflow-hidden cursor-text"
@@ -177,14 +177,14 @@ export function CommandInput({ disabled, onSubmit }: CommandInputProps) {
             }}
           >
             {/* Top row — label */}
-            <div className="!px-5 sm:!px-6 !pt-4 !pb-2 flex items-center gap-3">
+            <div className="!px-3 sm:!px-5 md:!px-6 !pt-3 sm:!pt-4 !pb-2 flex items-center gap-2 sm:gap-3 min-w-0">
               <span className="w-2 h-2 rounded-full bg-[#D2FF70] shrink-0" />
-              <span className="text-[#D2FF70] text-xs sm:text-sm font-mono">
+              <span className="text-[#D2FF70] text-xs sm:text-sm font-mono truncate">
                 Ask anything about Afzal&apos;s portfolio
               </span>
             </div>
             {/* Bottom row — input */}
-            <div className="!px-5 sm:!px-6 !pb-4 !pt-2 flex items-center gap-3">
+            <div className="!px-3 sm:!px-5 md:!px-6 !pb-3 sm:!pb-4 !pt-2 flex items-center gap-2 sm:gap-3 min-w-0">
               <span className="text-gray-500 text-sm font-mono">&gt;</span>
               <input
                 ref={inputRef}
@@ -227,7 +227,7 @@ export function CommandInput({ disabled, onSubmit }: CommandInputProps) {
                 setIsOpen((prev) => !prev);
               }
             }}
-            className="shrink-0 w-14 sm:w-16 min-h-[48px] rounded-xl bg-[#D2FF70] flex items-center justify-center hover:bg-[#c5f060] transition-colors active:scale-95"
+            className="shrink-0 w-12 h-12 min-h-[44px] sm:w-14 sm:h-14 sm:min-h-[48px] rounded-xl bg-[#D2FF70] flex items-center justify-center hover:bg-[#c5f060] transition-colors active:scale-95"
           >
             <span className="text-black text-xl sm:text-2xl font-medium">↵</span>
           </button>

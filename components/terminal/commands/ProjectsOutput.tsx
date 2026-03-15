@@ -22,7 +22,7 @@ export function ProjectsOutput() {
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.04 }}
-            className="group rounded-lg border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] hover:border-[#D2FF70]/20 transition-colors overflow-hidden"
+            className="group rounded-lg border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] hover:border-[#D2FF70]/20 transition-colors overflow-hidden min-w-0"
           >
             <a
               href={project.link}

@@ -14,6 +14,13 @@
   --border: #27272A;
   --input: #27272A;
   --ring: #D2FF70;
+  --terminal-mobile-pad-x: 0;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --terminal-mobile-pad-x: 1.5rem;
+  }
 }
 
 @theme inline {
@@ -44,6 +51,8 @@ body {
   font-family: var(--font-mono), "JetBrains Mono", "Fira Code", "Source Code Pro", ui-monospace, monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100dvh;
 }
 
 /* Blinking cursor */
@@ -75,6 +84,7 @@ body {
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /* Selection color */

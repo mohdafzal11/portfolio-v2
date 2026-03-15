@@ -16,7 +16,7 @@ export function WelcomeOutput() {
       className="py-4 font-mono"
     >
       {/* ASCII Art Name */}
-      <pre className="text-[#D2FF70] text-[10px] sm:text-sm md:text-base leading-tight whitespace-pre overflow-x-auto">
+      <pre className="text-[#D2FF70] text-[10px] sm:text-sm md:text-base leading-tight whitespace-pre overflow-x-auto max-w-full min-w-0">
         {ASCII_NAME}
       </pre>
 

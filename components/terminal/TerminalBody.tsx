@@ -16,7 +16,7 @@ export function TerminalBody({ history }: TerminalBodyProps) {
   }, [history.length]);
 
   return (
-    <div className="flex-1 overflow-y-auto terminal-scroll !px-0 !py-6">
+    <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden terminal-scroll !py-4 sm:!py-6">
       {history.map((entry) => (
         <TerminalLine key={entry.id} entry={entry} />
       ))}

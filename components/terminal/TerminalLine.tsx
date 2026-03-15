@@ -13,18 +13,18 @@ export function TerminalLine({ entry }: { entry: TerminalEntry }) {
 
   if (entry.type === "command") {
     return (
-      <div className="text-xs sm:text-sm py-1.5 font-mono mt-2">
+      <div className="text-xs sm:text-sm py-1.5 font-mono mt-2 break-words">
         <span className="text-[#27C93F]">visitor@afzal</span>
         <span className="text-gray-500">:</span>
         <span className="text-[#5c9eff]">~</span>
         <span className="text-gray-500">$ </span>
-        <span className="text-white">{entry.command}</span>
+        <span className="text-white break-all">{entry.command}</span>
       </div>
     );
   }
 
   // output
   return (
-    <div className="py-1">{entry.content}</div>
+    <div className="py-1 min-w-0 break-words">{entry.content}</div>
   );
 }
