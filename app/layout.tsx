@@ -9,6 +9,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/profile.jpg",
+  },
   title: "Mohd Afzal | Software Engineer | Web3 & AI Developer",
   description:
     "Software Engineer specializing in Web3, AI, and full-stack development. Building crypto analytics platforms, social media AI agents, and scalable web solutions. Based in Bengaluru, India.",
