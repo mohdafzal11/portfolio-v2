@@ -10,42 +10,17 @@ interface CommandInputProps {
   onSubmit: (value: string) => void;
 }
 
-function useRotatingPlaceholder() {
-  const [text, setText] = useState("");
-  const cmdIndex = useRef(0);
-  const charIndex = useRef(0);
-  const isDeleting = useRef(false);
-  const pauseRef = useRef(false);
-
-  useEffect(() => {
-    const tick = () => {
-      const currentCmd = "/" + allCommands[cmdIndex.current];
-      if (pauseRef.current) return;
-
-      if (!isDeleting.current) {
-        charIndex.current++;
-        setText(currentCmd.slice(0, charIndex.current));
-        if (charIndex.current === currentCmd.length) {
-          pauseRef.current = true;
-          setTimeout(() => {
-            pauseRef.current = false;
-            isDeleting.current = true;
-          }, 1500);
-        }
-      } else {
-        charIndex.current--;
-        setText(currentCmd.slice(0, charIndex.current));
-        if (charIndex.current === 0) {
-          isDeleting.current = false;
-          cmdIndex.current = (cmdIndex.current + 1) % allCommands.length;
-        }
-      }
-    };
-    const interval = setInterval(tick, isDeleting.current ? 40 : 80);
-    return () => clearInterval(interval);
-  });
-
-  return text;
+function getCommandHint(cmd: string): string {
+  switch (cmd) {
+    case "help": return "show commands";
+    case "about": return "about me";
+    case "projects": return "my work";
+    case "skills": return "tech stack";
+    case "experience": return "work history";
+    case "contact": return "reach out";
+    case "social": return "links";
+    default: return "";
+  }
 }
 
 export function CommandInput({ disabled, onSubmit }: CommandInputProps) {
@@ -54,8 +29,8 @@ export function CommandInput({ disabled, onSubmit }: CommandInputProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [inputText, setInputText] = useState("");
   const [highlightIndex, setHighlightIndex] = useState(-1);
-  const placeholder = useRotatingPlaceholder();
 
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
@@ -79,7 +54,6 @@ export function CommandInput({ disabled, onSubmit }: CommandInputProps) {
   const handleSubmit = () => {
     const text = inputText.trim();
     if (!text) return;
-
     const matchedCmd = allCommands.find(
       (c) => c === text.toLowerCase() || `/${c}` === text.toLowerCase()
     );
@@ -87,166 +61,155 @@ export function CommandInput({ disabled, onSubmit }: CommandInputProps) {
     onSubmit(matchedCmd ?? text);
   };
 
+  const filteredCommands = allCommands.filter(
+    (cmd) =>
+      inputText === "" ||
+      cmd.toLowerCase().includes(inputText.toLowerCase()) ||
+      `/${cmd}`.includes(inputText.toLowerCase())
+  );
+
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      if (isOpen && highlightIndex >= 0) {
-        select(allCommands[highlightIndex]);
+      if (!isOpen) {
+        setIsOpen(true);
+        setHighlightIndex(0);
+      } else if (highlightIndex >= 0 && filteredCommands[highlightIndex]) {
+        select(filteredCommands[highlightIndex]);
       } else {
         handleSubmit();
       }
-    } else if (e.key === "ArrowDown" && isOpen) {
+    } else if (e.key === "ArrowDown") {
       e.preventDefault();
-      setHighlightIndex((prev) =>
-        prev < allCommands.length - 1 ? prev + 1 : 0
-      );
-    } else if (e.key === "ArrowUp" && isOpen) {
+      if (!isOpen) {
+        setIsOpen(true);
+        setHighlightIndex(0);
+      } else {
+        setHighlightIndex((prev) =>
+          prev < filteredCommands.length - 1 ? prev + 1 : 0
+        );
+      }
+    } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setHighlightIndex((prev) => (prev > 0 ? prev - 1 : allCommands.length - 1));
+      if (isOpen) {
+        setHighlightIndex((prev) => (prev > 0 ? prev - 1 : filteredCommands.length - 1));
+      }
     } else if (e.key === "Escape") {
       setIsOpen(false);
     } else if (e.key === "Tab") {
       e.preventDefault();
-      if (highlightIndex >= 0) {
-        select(allCommands[highlightIndex]);
+      if (highlightIndex >= 0 && filteredCommands[highlightIndex]) {
+        select(filteredCommands[highlightIndex]);
       }
     }
   };
 
+  // Global Enter handler — opens palette when input not focused
+  useEffect(() => {
+    const handler = (e: globalThis.KeyboardEvent) => {
+      if (disabled) return;
+      const isInputFocused = document.activeElement === inputRef.current;
+      if (e.key === "Enter" && !isInputFocused) {
+        e.preventDefault();
+        inputRef.current?.focus();
+        setIsOpen(true);
+        setHighlightIndex(0);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [disabled]);
+
   return (
-    <div ref={wrapperRef} className="shrink-0 relative">
-      {/* Status bar */}
-      <div className="flex items-center justify-between !py-3 border-t border-white/[0.06] text-[10px] sm:text-xs text-gray-600 font-mono">
-        <div className="flex items-center gap-4">
-          <span>MEM: 48MB</span>
-          <span>CPU: 2%</span>
-        </div>
-        <span>EN</span>
-      </div>
-
-      {/* Input card + dropdown (dropdown positioned exactly above input) */}
-      <div className="!pt-4 !pb-5 sm:!pb-6">
-        <div className="relative">
-          {/* Dropdown — sits exactly above the input row */}
-          {isOpen && !disabled && (
-            <div className="absolute bottom-full left-0 right-0 mb-6">
-              <div className="rounded-lg border border-white/10 bg-[#1a1a1a] overflow-hidden shadow-2xl shadow-black/60 max-h-[40dvh] sm:max-h-[280px] overflow-y-auto">
-                <div className="!px-2.5 sm:!px-3 !py-1.5 border-b border-white/5">
-                  <span className="text-[10px] text-gray-600 uppercase tracking-wider">
-                    commands
-                  </span>
-                </div>
-                {allCommands.map((cmd, i) => (
-                  <button
-                    key={cmd}
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      select(cmd);
-                    }}
-                    onMouseEnter={() => setHighlightIndex(i)}
-                    onMouseLeave={() => setHighlightIndex(-1)}
-                    className={`w-full text-left !px-2.5 sm:!px-3 !py-1.5 text-xs sm:text-sm font-mono flex items-center gap-2 transition-colors ${
-                      i === highlightIndex
-                        ? "bg-[#D2FF70]/10 text-[#D2FF70]"
-                        : "text-gray-400 hover:bg-white/5 hover:text-gray-300"
-                    }`}
-                  >
-                    <span className={`${i === highlightIndex ? "text-[#D2FF70]" : "text-gray-600"}`}>
-                      /
-                    </span>
-                    <span className="flex-1">{cmd}</span>
-                    <span className="text-[10px] text-gray-600">
-                      {getCommandHint(cmd)}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Spacer: creates visible gap between dropdown and input when open */}
-          {isOpen && !disabled && <div className="h-2 shrink-0" aria-hidden />}
-
-          <div className="flex gap-2 sm:gap-4 items-stretch">
-          {/* Main input card */}
-          <div
-            className="flex-1 rounded-xl border border-white/[0.08] bg-[#141414] overflow-hidden cursor-text"
+    <div ref={wrapperRef} className="flex-shrink-0 bg-[#1a1a1a] cursor-pointer group rounded-b-lg relative">
+      <div style={{ maxWidth: 900, marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: 24, paddingRight: 24 }} className="py-2">
+        <div className="flex items-center">
+          <span
+            className="text-[#666] mr-2 cursor-pointer hover:text-[#888] transition-colors"
             onClick={() => {
-              inputRef.current?.focus();
+              setIsOpen((prev) => !prev);
+              if (!isOpen) setHighlightIndex(0);
+            }}
+          >
+            &gt;
+          </span>
+          <span className="inline-block w-[2px] h-4 bg-[#D2FF70] mr-[1px] cursor-blink" />
+          <input
+            ref={inputRef}
+            type="text"
+            value={inputText}
+            onChange={(e) => {
+              setInputText(e.target.value);
               setIsOpen(true);
+              setHighlightIndex(0);
             }}
-          >
-            {/* Top row — label */}
-            <div className="!px-3 sm:!px-5 md:!px-6 !pt-3 sm:!pt-4 !pb-2 flex items-center gap-2 sm:gap-3 min-w-0">
-              <span className="w-2 h-2 rounded-full bg-[#D2FF70] shrink-0" />
-              <span className="text-[#D2FF70] text-xs sm:text-sm font-mono truncate">
-                Ask anything about Afzal&apos;s portfolio
-              </span>
-            </div>
-            {/* Bottom row — input */}
-            <div className="!px-3 sm:!px-5 md:!px-6 !pb-3 sm:!pb-4 !pt-2 flex items-center gap-2 sm:gap-3 min-w-0">
-              <span className="text-gray-500 text-sm font-mono">&gt;</span>
-              <input
-                ref={inputRef}
-                type="text"
-                value={inputText}
-                onChange={(e) => {
-                  setInputText(e.target.value);
-                  setIsOpen(true);
-                }}
-                onKeyDown={handleKeyDown}
-                onFocus={() => setIsOpen(true)}
-                disabled={disabled}
-                placeholder={`Ask or press Enter... ${placeholder}`}
-                className="flex-1 bg-transparent text-gray-300 text-xs sm:text-sm outline-none placeholder:text-gray-600 font-mono min-w-0 py-1"
-                autoComplete="off"
-                autoCorrect="off"
-                autoCapitalize="off"
-                spellCheck={false}
-              />
-              <button
-                onMouseDown={(e) => {
-                  e.preventDefault();
+            onFocus={() => {
+              setIsOpen(true);
+              setHighlightIndex(0);
+            }}
+            onKeyDown={handleKeyDown}
+            disabled={disabled}
+            placeholder="Enter command..."
+            className="flex-1 bg-transparent border-none outline-none text-[#888] group-hover:text-[#aaa] transition-colors font-mono text-sm"
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck={false}
+          />
+          <div className="relative ml-3 flex-shrink-0">
+            <button
+              className="w-7 h-7 rounded-lg bg-[#D2FF70] hover:bg-[#c5f060] transition-colors flex items-center justify-center cursor-pointer disabled:opacity-30"
+              disabled={disabled}
+              onClick={() => {
+                if (inputText.trim()) {
                   handleSubmit();
-                }}
-                disabled={disabled || !inputText.trim()}
-                className="text-[10px] sm:text-xs text-gray-500 hover:text-[#D2FF70] transition-colors font-mono px-3 py-1.5 rounded-md border border-white/10 hover:border-[#D2FF70]/30 disabled:opacity-30 disabled:cursor-default"
-              >
-                Ask
-              </button>
-            </div>
+                } else {
+                  setIsOpen((prev) => !prev);
+                  if (!isOpen) setHighlightIndex(0);
+                }
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 10l-5 5 5 5" />
+                <path d="M4 15h11a4 4 0 0 0 4-4V5" />
+              </svg>
+            </button>
           </div>
-
-          {/* Enter button */}
-          <button
-            onMouseDown={(e) => {
-              e.preventDefault();
-              if (inputText.trim()) {
-                handleSubmit();
-              } else {
-                setIsOpen((prev) => !prev);
-              }
-            }}
-            className="shrink-0 w-12 h-12 min-h-[44px] sm:w-14 sm:h-14 sm:min-h-[48px] rounded-xl bg-[#D2FF70] flex items-center justify-center hover:bg-[#c5f060] transition-colors active:scale-95"
-          >
-            <span className="text-black text-xl sm:text-2xl font-medium">↵</span>
-          </button>
-        </div>
         </div>
       </div>
+
+      {/* Command Palette Dropdown */}
+      {isOpen && !disabled && filteredCommands.length > 0 && (
+        <div className="absolute bottom-full right-4 sm:right-6 w-[280px] sm:w-[320px] max-h-[400px] bg-[#252525] border border-[#333] rounded-lg overflow-y-auto mb-1 shadow-2xl shadow-black/60 z-50">
+          <div className="px-3 py-2 border-b border-[#333] flex items-center justify-between text-xs text-[#888]">
+            <span>Select Command</span>
+            <span>↑↓ nav · ↵ select</span>
+          </div>
+          {filteredCommands.map((cmd, i) => (
+            <button
+              key={cmd}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                select(cmd);
+              }}
+              onMouseEnter={() => setHighlightIndex(i)}
+              className={`w-full text-left px-3 py-2 text-xs sm:text-sm font-mono flex items-center gap-2 transition-colors ${
+                i === highlightIndex
+                  ? "bg-[#D2FF70] text-black"
+                  : "text-[#aaa] hover:bg-white/5"
+              }`}
+            >
+              <span className={`font-semibold min-w-[20px] ${i === highlightIndex ? "text-black/60" : "text-[#888]"}`}>
+                [{i}]
+              </span>
+              <span className={`min-w-[80px] ${i === highlightIndex ? "text-black/80" : "text-[#888]"}`}>
+                /{cmd}
+              </span>
+              <span className="flex-1">{getCommandHint(cmd)}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
-}
-
-function getCommandHint(cmd: string): string {
-  switch (cmd) {
-    case "help": return "show commands";
-    case "about": return "about me";
-    case "projects": return "my work";
-    case "skills": return "tech stack";
-    case "experience": return "work history";
-    case "contact": return "reach out";
-    case "social": return "links";
-    default: return "";
-  }
 }
