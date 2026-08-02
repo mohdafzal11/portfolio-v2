@@ -1,154 +1,56 @@
-# Software Engineer & Developer
+# portfolio-v2
 
-## Overview
+Personal site for Mohd Afzal — [mohdafzal.dev](https://mohdafzal.dev)
 
-I am a dedicated Software Engineer focused on building scalable, high-performance web applications. I specialize in modern frontend architectures and full-stack development. My engineering philosophy centers on writing clean, maintainable code and solving complex problems with efficient solutions.
+Next.js 16 App Router, static export, deployed to Cloudflare Pages.
 
-**Tagline:** Crafting industrial-grade digital experiences with a focus on motion, interaction, and scalability.
+## Run
 
-**Status:** Available for new projects
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # static export -> out/
+npm run lint
+```
 
----
+## Editing content
 
-## Personal Information
+**All site content lives in [`lib/data.ts`](lib/data.ts)** — bio, experience,
+projects, skills, education, social links. Nothing is hardcoded in components,
+so a copy change is a one-file change.
 
-- **Name:** Mohd Afzal
-- **Email:** afzalnaved0000@gmail.com
-- **Location:** Bengaluru, India
-- **GitHub:** [https://github.com/mohdafzal11](https://github.com/mohdafzal11)
-- **LinkedIn:** [https://www.linkedin.com/in/mohd-afzal-6baa86205/](https://www.linkedin.com/in/mohd-afzal-6baa86205/)
-- **Twitter:** [https://x.com/0x_Afzal](https://x.com/0x_Afzal)
+Keep it in sync with `resume.tex` in the parent folder; the roles and dates are
+meant to match exactly. The résumé served at `/resume.pdf` is a copy of the
+built PDF — re-copy it into `public/` when the résumé changes.
 
----
+## Structure
 
-## Professional Experience
+```
+app/
+  layout.tsx     fonts, metadata, the inline `.js` class script
+  page.tsx       composes the sections
+  globals.css    design tokens + type roles + reveal animation
+components/
+  sections/      Nav, Hero, Work, Archive, Experience, Stack, About, Footer
+  ui/            Shell, Reveal, RevealObserver, LocalTime, Primitives
+lib/
+  data.ts        all content
+  utils.ts       cn()
+```
 
-### Software Engineer
-**DroomDroom** | Jun 2024 - Present
+## Conventions
 
-Building a suite of user-friendly crypto analytics and intelligence platforms that make Web3 data accessible and actionable. Shipped real-time token price trackers, predictions engine, fundraising analytics platform, ETF trackers, and multi-chain mining ROI calculators. Focused on turning complex on-chain and market data into clean, trustworthy dashboards.
-
-**Technologies:** Web3, React, Next.js, Data Analytics, Crypto
-
----
-
-### Software Engineer
-**TIGEST** | Jul 2024 - Jun 2025
-
-Developed social media management software leveraging AI Agents to boost organic content engagement across LinkedIn, Twitter, Threads, Bluesky, Reddit, and Telegram. Solved employee advocacy challenges using AI for B2B SaaS, B2C brands, and Web3 companies.
-
-**Technologies:** AI Agents, Social Media, Next.js, Enterprise Dashboard
-
----
-
-### Junior Software Engineer
-**RevSpire** | Jan 2024 - Jun 2024
-
-Implemented and optimized REST APIs, improving response times by up to 30%. Developed robust backend components integrated with Salesforce. Worked with an agile team to architect scalable web solutions and integrated AI-driven modules to automate workflows.
-
-**Technologies:** REST APIs, Salesforce, Backend, AI Integration, Agile
-
----
-
-## Technical Stack
-
-### Frontend Architecture
-- React
-- Next.js
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-
-### Backend Systems
-- Node.js
-- Express.js
-- Go
-- Python
-- Django
-- MongoDB
-- PostgreSQL
-- Prisma
-- GraphQL
-- Serverless
-
-### Mobile Experience
-- React Native
-- Expo
-- iOS Integration
-- Android
-
-### DevOps & Tools
-- Git Environment
-- Docker Containers
-- AWS Cloud
-- Vercel CI/CD
-
----
-
-## Featured Projects
-
-### 1. MOYE - Meme Coin
-**Description:** Moye is an Indian frog who first gained fame through viral memes. A community-driven crypto project with engaging UI.
-
-**Technologies:** Next.js, Tailwind CSS, Web3, Framer Motion
-
-**Live Link:** [https://moyerevamped-sooty.vercel.app/](https://moyerevamped-sooty.vercel.app/)
-
----
-
-### 2. Dongo.ai - Web3 Research
-**Description:** Tailored to deliver in-depth analysis, real-time market forecasts, and seamless data integration, Dongo AI elevates strategic decision-making.
-
-**Technologies:** React, AI Integration, Data Analytics, Charts
-
-**Live Link:** [https://dongo-ai.vercel.app/](https://dongo-ai.vercel.app/)
-
----
-
-### 3. Claimfinal - Airdrop Finder
-**Description:** Bankless finds $802 on average in airdrops & more. Search your wallets and set up alerts for unclaimed tokens.
-
-**Technologies:** Web3, Blockchain, React, Notifications
-
-**Live Link:** [https://claimfinal.vercel.app/](https://claimfinal.vercel.app/)
-
----
-
-### 4. ACE.ai
-**Description:** Practice job interviews and scholarships with our advanced AI. Interactive interview simulation platform.
-
-**Technologies:** AI, Next.js, Speech-to-Text, OpenAI
-
-**Live Link:** [https://frontend-ace-ai.vercel.app/](https://frontend-ace-ai.vercel.app/)
-
----
-
-## Portfolio Website
-
-This portfolio is built with:
-- **Framework:** Next.js
-- **Styling:** Tailwind CSS
-- **Animations:** Framer Motion
-- **Type Safety:** TypeScript
-
-**Pages:**
-- Home - Hero section with introduction
-- About - Profile and technical stack
-- Experience - Professional timeline
-- Projects - Featured work showcase
-- Contact - Contact form and social links
-
----
-
-## Contact & Collaboration
-
-I'm currently available for new projects and collaborations. Feel free to reach out through:
-
-- **Email:** afzalnaved0000@gmail.com
-- **LinkedIn:** [Connect with me](https://www.linkedin.com/in/mohd-afzal-6baa86205/)
-- **GitHub:** [View my code](https://github.com/mohdafzal11)
-- **Twitter:** [Follow me](https://x.com/0x_Afzal)
-
----
-
-*Last Updated: 2024*
+- **No raw hex in components.** Colour lives in `app/globals.css` as CSS
+  variables exposed through Tailwind's `@theme`. Use `bg-surface`,
+  `text-fg-muted`, `border-hairline`, etc. The one exception is `themeColor` in
+  `layout.tsx`, a browser meta value that cannot reference a variable.
+- **Type roles**, not ad-hoc sizes: `.type-hero`, `.type-h2`, `.type-h3`,
+  `.type-label`. Three families — Instrument Serif for display, Inter for body,
+  JetBrains Mono for metadata.
+- **Layout goes through `<Shell>`** so gutters and max-width stay consistent.
+- **Scroll reveal defaults to visible.** The hidden state is gated behind a
+  `.js` class set before first paint, and `RevealObserver` has a 1.5s failsafe.
+  Decoration must never be the reason content can't be read.
+- **Do not add a `* { margin: 0 }` reset.** Tailwind's preflight already does
+  it, and a zero-specificity `*` rule declared afterwards silently kills the
+  `space-y-*` utilities, which v4 emits inside `:where()`.
