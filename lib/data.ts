@@ -190,7 +190,6 @@ export const experiences: Experience[] = [
     title: "Software Engineer",
     company: "Hashed Emergent",
     companyUrl: "https://hashedem.com/",
-    note: "VC arm of Hashed; organizer of India Blockchain Week",
     location: "Bengaluru, India",
     description:
       "Building a multi-tenant AI agent platform and the Go backend for India Blockchain Week. Cut LLM cost with a purpose-tiered model router using provider fallback and mid-turn escalation, and shipped the Telegram Mini App, conference sites and a crash-safe bulk notification worker.",
@@ -203,7 +202,6 @@ export const experiences: Experience[] = [
     title: "Software Engineer",
     company: "DroomDroom",
     companyUrl: "https://droomdroom.com/",
-    note: "Contract",
     location: "New York, NY · Remote",
     description:
       "Built crypto analytics products — a real-time token price tracker, a forecasting predictions engine, and a token-to-fiat conversion tool — alongside Web3 intelligence platforms covering fundraising analytics, ETF tracking, mining ROI and cross-asset holder dashboards.",
