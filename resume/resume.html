@@ -26,9 +26,8 @@
 <body>
 
 <h1>Mohd Afzal</h1>
-<p class="role">Software Engineer | Backend (Go) and Full-Stack Developer</p>
 <p class="contact">+91-9548873450 | afzalnaved0000@gmail.com | Bengaluru, India</p>
-<p class="contact">linkedin.com/in/mohd-afzal-6baa86205 | github.com/mohdafzal11 | afzal.pages.dev</p>
+<p class="contact">linkedin.com/in/mohd-afzal-6baa86205 | github.com/mohdafzal11</p>
 
 <h2>Summary</h2>
 <p>Software engineer with 2.5+ years building production AI agent systems and full-stack Web3 products end to end: Go and PostgreSQL backends, React and Next.js frontends, and LLM orchestration infrastructure.</p>
@@ -43,17 +42,17 @@
     <li>Specified, designed and built IBW Connect, the conference networking app, in 12 weeks (React, TypeScript, TanStack Query, Capacitor): ticket-based login, attendee directory, suggested matches, chat, meeting booking at venue tables, and a digital pass with a door scanner.</li>
     <li>Defined the webhook contract with the ticketing vendor so every issued ticket is written to PostgreSQL in real time, and built Telegram HMAC and Redis OTP authentication, full-text search (pg_trgm, tsvector) and a crash-safe bulk notification worker using Redis locks and batched goroutines.</li>
     <li>Extended the Telegram Mini App (React) to host multiple conferences, with quests, referrals and collectibles; seven events ran on the same app and backend in 2026.</li>
-    <li>Migrated indiablockchainweek.com from Rails to Next.js, and rebuilt hashedem.com from Laravel to Next.js with a CMS in three weeks.</li>
-    <li>Co-built an internal multi-tenant AI agent platform (TypeScript, PostgreSQL, Model Context Protocol, Claude API). Built the agents that answer ticket-sales, expense and news questions from live data in Telegram and Slack, and a Next.js dashboard to configure, deploy and monitor agents without code changes.</li>
+    <li>Built a multi-tenant AI agent platform running 15 domain agents as isolated Telegram bots on shared PostgreSQL, with a 12-stage task pipeline and 59 skills exposed over Model Context Protocol (MCP).</li>
+    <li>Cut LLM cost via a purpose-tiered model router with provider fallback and mid-turn escalation, routing sub-agents to a tier 30x cheaper per token; found a 0.3% prompt-cache hit rate and retuned TTL.</li>
   </ul>
 </div>
 
 <div class="job">
   <div class="row"><b>DroomDroom</b><span>New York, NY (Remote)</span></div>
-  <div class="row"><span class="sub">Software Engineer (full-time Jun - Nov 2025; part-time consultant Dec 2025 - May 2026)</span><span>Jun 2025 - May 2026</span></div>
+  <div class="row"><span class="sub">Software Engineer</span><span>Jun 2025 - May 2026</span></div>
   <ul>
-    <li>Built crypto analytics products in Next.js and React: a real-time token price tracker, a price predictions engine and a token-to-fiat conversion tool.</li>
-    <li>Developed Web3 data platforms: fundraising analytics tracking rounds and investor portfolios, a Bitcoin and Ethereum ETF tracker, a multi-chain mining ROI calculator and a cross-asset coin holder dashboard.</li>
+    <li>Primary engineer on the data tools of droomdroom.com, a crypto education site with 300,000+ monthly readers: built and shipped 13 public tools in Next.js, TypeScript, Prisma, MongoDB, Redis and Docker.</li>
+    <li>Tools include a price and market-cap tracker, a token-to-fiat converter, corporate treasury trackers (Bitcoin, Ethereum, Solana, Toncoin, Zcash), an ETF tracker, fundraising and token-sales analytics, airdrops, events, exchange listings, a mining calculator, coin comparison and price predictions.</li>
   </ul>
 </div>
 
@@ -61,7 +60,7 @@
   <div class="row"><b>Tigest</b><span>Bengaluru, India (Remote)</span></div>
   <div class="row"><span class="sub">Software Engineer</span><span>Jul 2024 - Jun 2025</span></div>
   <ul>
-    <li>Built AI social engagement agents with configurable behaviours, and a unified scheduler publishing to LinkedIn, Twitter, Bluesky and Reddit with role-based access control (RBAC).</li>
+    <li>Built AI social engagement agents with configurable behaviors, and a unified scheduler publishing to LinkedIn, Twitter, Bluesky and Reddit with role-based access control (RBAC).</li>
     <li>Built community and research tools, including gmser.xyz and a Twitter research agent producing weekly insight and competitor reports.</li>
   </ul>
 </div>
@@ -71,14 +70,14 @@
   <div class="row"><span class="sub">Junior Software Engineer, Internship</span><span>Jan 2024 - Jun 2024</span></div>
   <ul>
     <li>Implemented and optimized REST APIs, cutting response times by up to 30% through query optimization and caching.</li>
-    <li>Integrated Salesforce and AI-driven automation modules, working in an agile team of 12-15 engineers.</li>
+    <li>Integrated Salesforce with the platform and built AI-driven modules for workflow automation and content personalization.</li>
   </ul>
 </div>
 
 <h2>Technical Skills</h2>
 <div class="skills">
   <p><b>Languages:</b> Go (Golang), TypeScript, JavaScript, Python, SQL</p>
-  <p><b>Backend:</b> Fiber, Node.js, Express, REST APIs, Webhooks, PostgreSQL, Redis, Prisma, Drizzle, Docker</p>
+  <p><b>Backend:</b> Fiber, Node.js, Express, REST APIs, Webhooks, PostgreSQL, MongoDB, Redis, Prisma, Drizzle, Docker</p>
   <p><b>Frontend:</b> React, Next.js, Capacitor, Framework7, Redux, TanStack Query, Tailwind CSS, Vite</p>
   <p><b>AI and Tools:</b> Claude API, OpenAI API, Model Context Protocol (MCP), AI agents, Telegram Bot API, PostHog, Git, CI/CD</p>
 </div>

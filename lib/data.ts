@@ -15,7 +15,7 @@ export const personalInfo = {
   resumeUrl: "/resume.pdf",
   bio: [
     "I'm a software engineer in Bengaluru. At Hashed Emergent, the venture arm of Hashed, I'm the primary engineer on the platform behind India Blockchain Week: one Go backend serving the conference website, a networking app, a Telegram Mini App, an admin console and a volunteer dashboard.",
-    "I like owning a product from the spec to event day. I wrote the spec for IBW Connect, designed it and built it in twelve weeks, then ran it through the conference. I also co-built our internal AI agent platform, where the lesson was simple: narrow agents on one data source worked, broad ones did not.",
+    "I like owning a product from the spec to event day. I wrote the spec for IBW Connect, designed it and built it in twelve weeks, then ran it through the conference. I also built our internal AI agent platform, where the lesson was simple: narrow agents on one data source worked, broad ones did not.",
   ],
   social: {
     github: { url: "https://github.com/mohdafzal11", handle: "mohdafzal11", label: "GitHub" },
@@ -41,6 +41,7 @@ export const skills = [
       "Express",
       "REST APIs",
       "PostgreSQL",
+      "MongoDB",
       "Redis",
       "Prisma",
       "Drizzle",
@@ -120,10 +121,14 @@ export const featuredProjects: Project[] = [
   {
     title: "AI Agent Platform",
     year: "2026",
-    role: "Hashed Emergent · Co-built",
+    role: "Hashed Emergent",
     summary:
-      "An internal multi-tenant platform that runs each agent as its own Telegram or Slack bot with its own tools, schedule and memory. I built the agents that answer ticket-sales, expense and news questions from live data, and the dashboard that configures, deploys and monitors agents without a code change.",
-    metrics: [{ value: "3", label: "agents in daily team use" }],
+      "A multi-tenant platform running fifteen domain agents as isolated Telegram bots on shared PostgreSQL, with a twelve-stage task pipeline and fifty-nine skills exposed over Model Context Protocol. A dashboard configures, deploys and monitors agents without a code change.",
+    metrics: [
+      { value: "15", label: "domain agents" },
+      { value: "59", label: "skills over MCP" },
+      { value: "12", label: "stage task pipeline" },
+    ],
     tags: ["TypeScript", "PostgreSQL", "MCP", "Claude API", "Next.js", "Docker"],
   },
 ];
@@ -185,7 +190,7 @@ export const experiences: Experience[] = [
     companyUrl: "https://hashedem.com/",
     location: "Bengaluru, India",
     description:
-      "Primary engineer on the Go and PostgreSQL backend behind five India Blockchain Week products. Specified, designed and built the IBW Connect networking app, moved the conference site from Rails to Next.js and hashedem.com from Laravel to Next.js, and co-built the internal AI agent platform and its dashboard.",
+      "Primary engineer on the Go and PostgreSQL backend behind five India Blockchain Week products. Specified, designed and built the IBW Connect networking app in twelve weeks, and built a multi-tenant AI agent platform running fifteen domain agents with fifty-nine skills over Model Context Protocol.",
     skills: ["Go", "PostgreSQL", "Redis", "React", "Next.js", "TypeScript", "MCP"],
   },
   {
@@ -195,11 +200,10 @@ export const experiences: Experience[] = [
     title: "Software Engineer",
     company: "DroomDroom",
     companyUrl: "https://droomdroom.com/",
-    note: "Full-time, then part-time consultant from Dec 2025",
     location: "New York, NY · Remote",
     description:
-      "Built crypto analytics products in Next.js and React: a real-time token price tracker, a price predictions engine and a token-to-fiat conversion tool, plus data platforms for fundraising analytics, ETF tracking, mining ROI and cross-asset holder dashboards.",
-    skills: ["Next.js", "React", "Data Analytics", "Web3"],
+      "Primary engineer on the data tools of droomdroom.com, a crypto education site with 300,000+ monthly readers. Built and shipped 13 public tools, including a price and market-cap tracker, a token-to-fiat converter, corporate treasury trackers, an ETF tracker, fundraising and token-sales analytics, a mining calculator and price predictions.",
+    skills: ["Next.js", "TypeScript", "Prisma", "MongoDB", "Redis", "Docker"],
   },
   {
     period: "Jul 2024 — Jun 2025",
