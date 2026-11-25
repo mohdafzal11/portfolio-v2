@@ -337,7 +337,7 @@ export function AgentGraph() {
 
       {/* caption ties the ornament to the actual work */}
       <p className="type-label mt-2 text-right">
-        agent orchestration · 15 in production
+        one backend · agents on live data
       </p>
     </div>
   );

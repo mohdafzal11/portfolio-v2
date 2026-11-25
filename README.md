@@ -1,6 +1,6 @@
 # portfolio-v2
 
-Personal site for Mohd Afzal — [mohdafzal.dev](https://mohdafzal.dev)
+Personal site for Mohd Afzal — [afzal.pages.dev](https://afzal.pages.dev)
 
 Next.js 16 App Router, static export, deployed to Cloudflare Pages.
 

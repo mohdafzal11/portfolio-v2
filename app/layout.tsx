@@ -32,9 +32,9 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const SITE_URL = "https://mohdafzal.dev";
+const SITE_URL = "https://afzal.pages.dev";
 const DESCRIPTION =
-  "Software engineer building AI agent infrastructure and full-stack Web3 platforms. Go and PostgreSQL backends, React and Next.js frontends, LLM orchestration. Based in Bengaluru, India.";
+  "Software engineer building backend and full-stack products: Go and PostgreSQL services, React and Next.js apps, and AI agents. Based in Bengaluru, India.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -48,7 +48,8 @@ export const metadata: Metadata = {
     "Mohd Afzal",
     "Software Engineer",
     "Go Developer",
-    "AI Agent Infrastructure",
+    "Backend Developer",
+    "AI Agents",
     "Full Stack Developer",
     "Web3 Developer",
     "Next.js",

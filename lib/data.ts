@@ -4,7 +4,7 @@ export const personalInfo = {
   lastName: "Afzal",
   title: "Software Engineer",
   positioning:
-    "I build AI agent infrastructure and full-stack Web3 platforms — from Go backends and multi-tenant agent systems to the interfaces on top of them.",
+    "I build backend and full-stack products end to end: Go and PostgreSQL services, the React and Next.js apps on top of them, and the AI agents that work from their data.",
   location: "Bengaluru, India",
   timezone: "Asia/Kolkata",
   email: "afzalnaved0000@gmail.com",
@@ -14,8 +14,8 @@ export const personalInfo = {
   yearsExperience: "2.5+",
   resumeUrl: "/resume.pdf",
   bio: [
-    "I'm a software engineer in Bengaluru working on the infrastructure layer of AI and Web3 products. At Hashed Emergent — the venture arm of Hashed — I build a multi-tenant agent platform that runs fifteen domain agents in production, and the Go backend behind India Blockchain Week.",
-    "Most of what I enjoy sits below the interface: model routing that cuts cost without cutting quality, workers that survive a restart mid-send, search that stays fast as the table grows. I care about systems that hold up when nobody is watching them.",
+    "I'm a software engineer in Bengaluru. At Hashed Emergent, the venture arm of Hashed, I'm the primary engineer on the platform behind India Blockchain Week: one Go backend serving the conference website, a networking app, a Telegram Mini App, an admin console and a volunteer dashboard.",
+    "I like owning a product from the spec to event day. I wrote the spec for IBW Connect, designed it and built it in twelve weeks, then ran it through the conference. I also co-built our internal AI agent platform, where the lesson was simple: narrow agents on one data source worked, broad ones did not.",
   ],
   social: {
     github: { url: "https://github.com/mohdafzal11", handle: "mohdafzal11", label: "GitHub" },
@@ -31,7 +31,7 @@ export const personalInfo = {
 export const skills = [
   {
     category: "Languages",
-    items: ["Go", "TypeScript", "JavaScript", "Python", "SQL", "C/C++"],
+    items: ["Go", "TypeScript", "JavaScript", "Python", "SQL"],
   },
   {
     category: "Backend",
@@ -52,6 +52,7 @@ export const skills = [
     items: [
       "React",
       "Next.js",
+      "Capacitor",
       "Framework7",
       "Redux",
       "TanStack Query",
@@ -60,15 +61,14 @@ export const skills = [
     ],
   },
   {
-    category: "AI & Infra",
+    category: "AI & Tools",
     items: [
       "Claude API",
       "OpenAI",
-      "OpenRouter",
-      "Ollama",
       "Model Context Protocol",
-      "Agent Orchestration",
-      "OpenTelemetry",
+      "AI Agents",
+      "Telegram Bot API",
+      "PostHog",
       "CI/CD",
     ],
   },
@@ -91,52 +91,55 @@ export type Project = {
 /** Flagship systems — rendered as large cards in Selected Work. */
 export const featuredProjects: Project[] = [
   {
-    title: "AI Agent Platform",
-    year: "2026",
-    role: "Hashed Emergent",
-    summary:
-      "A multi-tenant platform running fifteen domain agents as isolated Telegram bots over shared PostgreSQL. A twelve-stage task pipeline, fifty-eight typed capabilities, and sub-agent skills exposed over Model Context Protocol.",
-    metrics: [
-      { value: "15", label: "agents in production" },
-      { value: "30x", label: "cheaper sub-agent tier" },
-      { value: "~5 min", label: "config to live agent" },
-    ],
-    tags: ["TypeScript", "PostgreSQL", "MCP", "Claude API", "Docker", "OpenTelemetry"],
-  },
-  {
     title: "India Blockchain Week",
     year: "2025—2026",
     role: "Hashed Emergent",
     summary:
-      "The platform behind India's flagship Web3 conference: a Go and Fiber backend, a React Telegram Mini App with quests and networking, an operator console, and the public conference site.",
+      "The platform behind India's flagship Web3 conference. One Go and Fiber backend on PostgreSQL and Redis serves the public site, a networking app, a Telegram Mini App, an admin console and a volunteer dashboard, with ticket data arriving in real time through a vendor webhook.",
     metrics: [
-      { value: "3,500+", label: "attendees served" },
-      { value: "218", label: "REST endpoints" },
-      { value: "33", label: "Postgres tables" },
+      { value: "5", label: "products on one backend" },
+      { value: "7", label: "events hosted in 2026" },
+      { value: "15", label: "event-week releases, no downtime" },
     ],
     tags: ["Go", "Fiber", "PostgreSQL", "Redis", "React", "Next.js"],
     link: "https://indiablockchainweek.com",
     linkLabel: "indiablockchainweek.com",
   },
   {
-    title: "Orviq",
+    title: "IBW Connect",
     year: "2026",
-    role: "Independent",
+    role: "Hashed Emergent · Product, design and build",
     summary:
-      "A creator campaign marketplace settling payouts in USDC on Stellar, plus a job-discovery pipeline that scrapes and enriches startup hiring posts using deterministic matching and SEC EDGAR filings.",
+      "The conference networking app, which I specified, designed and built. Attendees log in with their ticket, browse a directory, get suggested matches, chat, book meetings at venue tables and show a digital pass at the door. Web first, with native builds from the same code through Capacitor.",
     metrics: [
-      { value: "27", label: "Postgres tables" },
-      { value: "60", label: "API routes" },
-      { value: "6", label: "pipeline phases" },
+      { value: "12", label: "weeks from spec to launch" },
+      { value: "31", label: "screens" },
     ],
-    tags: ["Next.js", "Supabase", "Drizzle", "Prisma", "Telegram", "Apify"],
-    link: "https://orviq.xyz",
-    linkLabel: "orviq.xyz",
+    tags: ["React", "TypeScript", "TanStack Query", "Capacitor", "Go"],
+  },
+  {
+    title: "AI Agent Platform",
+    year: "2026",
+    role: "Hashed Emergent · Co-built",
+    summary:
+      "An internal multi-tenant platform that runs each agent as its own Telegram or Slack bot with its own tools, schedule and memory. I built the agents that answer ticket-sales, expense and news questions from live data, and the dashboard that configures, deploys and monitors agents without a code change.",
+    metrics: [{ value: "3", label: "agents in daily team use" }],
+    tags: ["TypeScript", "PostgreSQL", "MCP", "Claude API", "Next.js", "Docker"],
   },
 ];
 
 /** Earlier work — rendered as a compact list. */
 export const archiveProjects: Project[] = [
+  {
+    title: "Orviq",
+    year: "2026",
+    role: "Independent",
+    summary:
+      "Creator campaign marketplace settling payouts in USDC on Stellar, plus a job-discovery pipeline for startup hiring posts.",
+    metrics: [],
+    tags: ["Next.js", "Supabase", "Drizzle"],
+    link: "https://orviq.xyz",
+  },
   {
     title: "Dongo.ai",
     year: "2025",
@@ -156,16 +159,6 @@ export const archiveProjects: Project[] = [
     tags: ["Web3", "React", "Notifications"],
     link: "https://claimfinal.vercel.app/",
     preview: "/claim-final-sm.jpg",
-  },
-  {
-    title: "MOYE",
-    year: "2024",
-    role: "Meme Coin",
-    summary: "Community-driven token site for a viral Indian meme, built for launch traffic.",
-    metrics: [],
-    tags: ["Next.js", "Tailwind", "Web3"],
-    link: "https://moyerevamped-sooty.vercel.app/",
-    preview: "/moye-meme-sm.jpg",
   },
 ];
 
@@ -192,8 +185,8 @@ export const experiences: Experience[] = [
     companyUrl: "https://hashedem.com/",
     location: "Bengaluru, India",
     description:
-      "Building a multi-tenant AI agent platform and the Go backend for India Blockchain Week. Cut LLM cost with a purpose-tiered model router using provider fallback and mid-turn escalation, and shipped the Telegram Mini App, conference sites and a crash-safe bulk notification worker.",
-    skills: ["Go", "TypeScript", "PostgreSQL", "Redis", "MCP", "Docker", "React"],
+      "Primary engineer on the Go and PostgreSQL backend behind five India Blockchain Week products. Specified, designed and built the IBW Connect networking app, moved the conference site from Rails to Next.js and hashedem.com from Laravel to Next.js, and co-built the internal AI agent platform and its dashboard.",
+    skills: ["Go", "PostgreSQL", "Redis", "React", "Next.js", "TypeScript", "MCP"],
   },
   {
     period: "Jun 2025 — May 2026",
@@ -202,9 +195,10 @@ export const experiences: Experience[] = [
     title: "Software Engineer",
     company: "DroomDroom",
     companyUrl: "https://droomdroom.com/",
+    note: "Full-time, then part-time consultant from Dec 2025",
     location: "New York, NY · Remote",
     description:
-      "Built crypto analytics products — a real-time token price tracker, a forecasting predictions engine, and a token-to-fiat conversion tool — alongside Web3 intelligence platforms covering fundraising analytics, ETF tracking, mining ROI and cross-asset holder dashboards.",
+      "Built crypto analytics products in Next.js and React: a real-time token price tracker, a price predictions engine and a token-to-fiat conversion tool, plus data platforms for fundraising analytics, ETF tracking, mining ROI and cross-asset holder dashboards.",
     skills: ["Next.js", "React", "Data Analytics", "Web3"],
   },
   {
